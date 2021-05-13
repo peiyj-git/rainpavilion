@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+		<!--private int menuId;-->
+		<!--private String menuName;-->
+		<!--private String menuUrl;-->
+		<!--private int menuParentId;-->
+		<!--private List<Menu> child;-->
+
+		<!--CREATE TABLE `cmfz_menu` (-->
+		<!--`menu_id` int(11) NOT NULL AUTO_INCREMENT,-->
+		<!--`menu_name` varchar(50) DEFAULT NULL,-->
+		<!--`menu_url` varchar(500) DEFAULT NULL,-->
+		<!--`menu_parent_id` int(11) DEFAULT NULL,-->
+		<!--PRIMARY KEY (`menu_id`)-->
+		<!--)-->
+
+<mapper namespace="com.rainpavilion.mapper.MenuMapper">
+	<resultMap id="MenuMap" type="com.rainpavilion.entity.Menu">
+		<id column="menu_id" property="menuId"/>
+
+		<result column="menu_name" property="menuName"/>
+		<result column="menu_url" property="menuUrl"/>
+		<result column="menu_parent_id" property="menuParentId"/>
+
+		<collection property="child" ofType="com.rainpavilion.entity.Menu">
+			<id column="id1" property="menuId"/>
+			<result column="resname1" property="menuName"/>
+			<result column="resurl1" property="menuUrl"/>
+			<result column="menu_parent_id" property="menuParentId"/>
+		</collection>
+
+	</resultMap>
+
+	<!--查询一条数据 登录使用-->
+	<select id="selectAll" resultMap="MenuMap">
+		select a.menu_id,a.menu_name,b.menu_id id1,b.menu_name resname1,b.menu_url resurl1,b.menu_parent_id menu_parent_id
+		from (select * from cmfz_menu where menu_parent_id is null) a
+		INNER JOIN cmfz_menu b on a.menu_id=b.menu_parent_id
+	</select>
+
+
+
+
+</mapper>

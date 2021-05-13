@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.rainpavilion.mapper.AdminRoleMapper">
+	<resultMap id="adminMap" type="com.rainpavilion.entity.shiro.AdminRole">
+		<id column="id" property="id"/>
+
+		<result column="admin_id" property="adminId"/>
+		<result column="role_id" property="roleId"/>
+	</resultMap>
+
+	<sql id = "select_sql">
+		id,admin_id,role_id
+	</sql>
+
+	<select id="selectList" resultMap="adminMap">
+		select <include refid="select_sql"></include>
+		from admin_role
+		where admin_id = #{adminId}
+	</select>
+
+
+</mapper>
+

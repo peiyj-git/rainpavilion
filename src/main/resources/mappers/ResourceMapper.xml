@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.rainpavilion.mapper.ResourceMapper">
+	<resultMap id="adminMap" type="com.rainpavilion.entity.shiro.Resource">
+		<id column="resource_id" property="resourceId"/>
+
+		<result column="resource_name" property="resourceName"/>
+		<result column="resource_url" property="resourceUrl"/>
+		<result column="resource_type" property="resourceType"/>
+		<result column="resource_permission" property="resourcePermission"/>
+		<result column="resource_parent_id" property="resourceParentId"/>
+		</resultMap>
+
+
+
+	<sql id = "select_sql">
+		resource_id
+		,resource_name
+		,resource_url
+		,resource_type
+		,resource_permission
+		,resource_parent_id
+	</sql>
+
+
+	<select id="selectOne" resultMap="adminMap">
+		select <include refid="select_sql"></include>
+		from resource
+		where resource_id = #{resourceId } and resource_type = "function"
+	</select>
+
+
+</mapper>
+
